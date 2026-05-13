@@ -5,7 +5,7 @@ from src.api.dependencies import DBDep
 from src.schemas.hotels import Hotel, HotelPATCH
 from fastapi.openapi.models import Example
 
-router = APIRouter(prefix='/hotels', tags=['Отели'])
+router = APIRouter(prefix='/api/hotels', tags=['Отели'])
 
 @router.get("", summary='Получить отели')
 @cache(expire=10)

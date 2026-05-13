@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вход - Hotels Booking</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="/" class="logo">🏨 Hotels Booking</a>
+            <div class="nav-links">
+                <a href="/register">Регистрация</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="alert" id="alert"></div>
+
+        <div class="form-container">
+            <h1 class="page-title" style="text-align: center;">Вход в систему</h1>
+
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Пароль</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%;">
+                    Войти
+                </button>
+            </form>
+
+            <p style="text-align: center; margin-top: 1.5rem; color: var(--text-secondary);">
+                Нет аккаунта? <a href="/register" style="color: var(--primary-color);">Зарегистрироваться</a>
+            </p>
+        </div>
+    </main>
+    <script src="/static/js/messages.js"></script>
+    <script src="/static/js/auth.js"></script>
+    <script src="/static/js/hotels.js"></script>
+    <script src="/static/js/bookings.js"></script>
+    <script src="/static/js/profile.js"></script>
+    <script src="/static/js/main.js"></script>
+</body>
+
+</html>

@@ -19,6 +19,9 @@ class UserRequestAdd(BaseModel):
     email: EmailStr
     password:str = Field(max_length=72)
 
+class UserGET(BaseModel):
+    email: EmailStr
+    password: str = Field(max_length=72)
 
 class UserWithHashedPassword(User):
     hashed_password: str

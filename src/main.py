@@ -3,7 +3,9 @@ import uvicorn
 from fastapi import FastAPI
 from fastapi_cache import FastAPICache
 from fastapi_cache.backends.redis import RedisBackend
-
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 import sys
 from pathlib import Path
 
@@ -11,7 +13,6 @@ sys.path.append(str(Path(__file__).parent.parent))
 
 from contextlib import asynccontextmanager
 from src.init import redis_connector
-
 from src.api.hotels import router as hotels_router
 from src.api.auth import router as auth_router
 from src.api.rooms import router as rooms_router
@@ -32,6 +33,19 @@ app.include_router(hotels_router)
 app.include_router(auth_router)
 app.include_router(bookings_router)
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:8000", "http://127.0.0.1:8000"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+BASE_DIR = Path(__file__).parent.parent
+static_path = BASE_DIR / "static"
+pages_path = BASE_DIR / "static" / "pages"
+
+app.mount("/static", StaticFiles(directory=str(static_path)), name="static")
 
 @app.get("/docs", include_in_schema=False)
 async def custom_swagger_ui_html():
@@ -43,6 +57,33 @@ async def custom_swagger_ui_html():
         swagger_css_url="https://unpkg.com/swagger-ui-dist@5/swagger-ui.css",
     )
 
+@app.get("/")
+async def index():
+    return FileResponse(pages_path / "index.html")
+
+@app.get("/login")
+async def login():
+    return FileResponse(pages_path / "login.html")
+
+@app.get("/register")
+async def register():
+    return FileResponse(pages_path / "registry.html")
+
+@app.get("/hotels")
+async def hotels_page():
+    return FileResponse(pages_path / "index.html")
+
+@app.get("/hotel/{hotel_id}")
+async def hotel_detail(hotel_id: int):
+    return FileResponse(pages_path / "hotel_detail.html")
+
+@app.get("/bookings")
+async def bookings_page():
+    return FileResponse(pages_path / "bookings.html")
+
+@app.get("/profile")
+async def profile_page():
+    return FileResponse(pages_path / "profile.html")
 
 if __name__ == "__main__":
-    uvicorn.run('main:app', reload = True)
+    uvicorn.run('src.main:app', reload=True)

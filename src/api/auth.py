@@ -3,10 +3,10 @@ from fastapi import HTTPException
 from fastapi import APIRouter, Response
 
 from src.api.dependencies import UserIdDep, DBDep
-from src.schemas.users import UserRequestAdd, UserAdd
+from src.schemas.users import UserRequestAdd, UserAdd, UserGET
 from src.services.auth import AuthService
 
-router = APIRouter(prefix='/auth', tags=['Автотризация и аутентификация'])
+router = APIRouter(prefix='/api/auth', tags=['Автотризация и аутентификация'])
 
 
 @router.post('/register')
@@ -25,7 +25,7 @@ async def register(
 
 @router.post('/login')
 async def login(
-        data: UserRequestAdd,
+        data: UserGET,
         response: Response,
         db: DBDep
 ):
@@ -35,7 +35,13 @@ async def login(
     if not AuthService().verify_password(data.password, user.hashed_password):
         raise HTTPException(status_code=400, detail="Incorrect password")
     access_token = AuthService().create_access_token({'user_id': user.id})
-    response.set_cookie('access_token', access_token)
+    response.set_cookie(
+        key="access_token",
+        value=access_token,
+        samesite="lax",
+        path="/",
+        max_age=3600
+    )
     return {'status': access_token}
 
 @router.get('/me')

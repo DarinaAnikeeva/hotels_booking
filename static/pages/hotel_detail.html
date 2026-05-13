@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Отель - Hotels Booking</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="/" class="logo">🏨 Hotels Booking</a>
+            <div class="nav-links" id="navLinks">
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="alert" id="alert"></div>
+
+        <a href="/" class="btn btn-outline btn-sm" style="margin-bottom: 2rem;">← Назад к отелям</a>
+
+        <div id="hotelInfo">
+            <div class="hotel-card" style="margin-bottom: 2rem;">
+                <h1 id="hotelName">Загрузка...</h1>
+                <p class="location" id="hotelAddress">📍 Адрес</p>
+            </div>
+        </div>
+        </div>
+
+        <h2 style="margin-bottom: 1.5rem;">Доступные номера</h2>
+        <div id="roomsList" class="rooms-list">
+            <div class="empty-state">
+                <p>Загрузка номеров...</p>
+            </div>
+        </div>
+    </main>
+
+    <div class="modal" id="bookingModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Забронировать номер</h2>
+                <button class="modal-close" onclick="closeBookingModal()">&times;</button>
+            </div>
+            <form id="bookingForm">
+                <input type="hidden" id="roomId">
+                <div class="form-group">
+                    <label>Номер</label>
+                    <input type="text" id="roomName" readonly>
+                </div>
+                <div class="form-group">
+                    <label>Цена за ночь</label>
+                    <input type="text" id="roomPrice" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="dateFrom">Дата заезда</label>
+                    <input type="date" id="dateFrom" required>
+                </div>
+                <div class="form-group">
+                    <label for="dateTo">Дата выезда</label>
+                    <input type="date" id="dateTo" required>
+                </div>
+                <div class="form-group">
+                    <label>Итого</label>
+                    <input type="text" id="totalPrice" readonly
+                        style="font-weight: bold; font-size: 1.2rem; color: var(--primary-color);">
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">
+                    Подтвердить бронирование
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script src="/static/js/messages.js"></script>
+    <script src="/static/js/auth.js"></script>
+    <script src="/static/js/hotels.js"></script>
+    <script src="/static/js/bookings.js"></script>
+    <script src="/static/js/profile.js"></script>
+    <script src="/static/js/main.js"></script>
+</body>
+
+</html>

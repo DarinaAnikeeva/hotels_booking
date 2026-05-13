@@ -6,7 +6,7 @@ from src.database import async_session_maker
 from src.repositories.rooms import RoomsRepository
 from src.schemas.rooms import RoomPOST, RoomPATCH
 
-router = APIRouter(prefix='/hotels', tags=['Номера'])
+router = APIRouter(prefix='/api/hotels', tags=['Номера'])
 
 @router.get('/{hotel_id}/rooms', summary='Получить все номера отеля')
 async def get_rooms(
